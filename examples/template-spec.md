@@ -2,159 +2,106 @@
 
 | 版本 | 撰寫人 | 更新日期 | 說明 |
 |------|--------|----------|------|
-| v1.0 | John Smith | 2024-01-15 | Initial version |
+| v1.0 | author | 2024-01-15 | Initial version |
 
 ---
 
-## 1. 文件定位
+## 1. Document Positioning
 
-This document specifies the User Authentication Module, which provides secure authentication mechanisms for the application platform. This specification covers:
-
-- Authentication mechanisms (password-based, OAuth, multi-factor authentication)
-- Session management and token handling
-- Security requirements and compliance standards
-- API endpoints and integration points
-- Error handling and recovery procedures
-
-### Target Audience
-
-- Backend engineers implementing authentication services
-- Frontend developers integrating login flows
-- Security and infrastructure teams
-- QA engineers validating authentication scenarios
-
-### Scope
-
-This specification applies to:
-
-- Authentication v2.0+ of the platform
-- All client applications (web, mobile, desktop)
-- Third-party OAuth integrations
-
-### Out of Scope
-
-- Password reset email templates
-- OAuth provider-specific implementation details
-- Analytics and logging mechanisms
+| Item | Description |
+|------|-------------|
+| Scope | (What this spec covers) |
+| Target Audience | (Who should read this) |
+| Prerequisites | (Related specs or background knowledge) |
+| Out of Scope | (What this spec does NOT cover) |
 
 ---
 
 ## 2. Overview
 
-The User Authentication Module provides a unified interface for user login, session management, and token validation. Users authenticate via email and password, receive a JWT token, and use that token for subsequent API requests.
-
-### Key Components
-
-| Component | Responsibility | Owner |
-|-----------|-----------------|-------|
-| Auth Service | Token generation, validation, refresh | Backend Team |
-| Session Store | Session state management | Infrastructure |
-| Email Verification | Email-based user confirmation | Auth Team |
-| Rate Limiting | Login attempt throttling | Security |
+(Brief description of the feature/module — what it does, why it exists, key constraints.)
 
 ---
 
-## 3. API Specification
+## 3. Functional Requirements
 
-### Login Endpoint
+### 3.1 (Requirement Group A)
+
+| # | Requirement | Priority | Notes |
+|---|-------------|----------|-------|
+| 1 | (Describe requirement) | Must | |
+| 2 | (Describe requirement) | Should | |
+
+### 3.2 (Requirement Group B)
+
+(Continue with more requirement groups as needed.)
+
+---
+
+## 4. Data Model
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| id | string | Yes | Unique identifier |
+| name | string | Yes | Display name |
+| status | enum | Yes | ACTIVE, INACTIVE, PENDING |
+| created_at | datetime | Yes | Creation timestamp |
+
+---
+
+## 5. API / Interface
 
 ```
-POST /api/v2/auth/login
+POST /api/v1/resource
 ```
 
-Request payload:
+Request:
 
 ```json
 {
-  "email": "user@example.com",
-  "password": "secure_password_here"
+  "name": "example",
+  "status": "ACTIVE"
 }
 ```
 
-Response (200 OK):
+Response:
 
 ```json
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "user": {
-    "id": "user-123",
-    "email": "user@example.com",
-    "name": "John Doe"
-  },
-  "expires_in": 3600
+  "id": "res-001",
+  "name": "example",
+  "status": "ACTIVE",
+  "created_at": "2024-01-15T10:00:00Z"
 }
 ```
-
-Error responses:
 
 | Status | Code | Description |
 |--------|------|-------------|
-| 400 | INVALID_CREDENTIALS | Email or password incorrect |
-| 429 | RATE_LIMITED | Too many login attempts |
-| 500 | INTERNAL_ERROR | Server error |
+| 200 | OK | Success |
+| 400 | BAD_REQUEST | Validation error |
+| 404 | NOT_FOUND | Resource not found |
 
 ---
 
-## 4. Session Management
+## 6. Business Rules
 
-Sessions are maintained using JWT tokens with the following properties:
-
-- **Algorithm**: HS256
-- **Expiration**: 1 hour default, configurable per user tier
-- **Refresh Token**: 30 days, allows token renewal without re-login
-- **Payload Fields**: user_id, email, roles, issued_at, expires_at
-
-Example token payload:
-
-```json
-{
-  "user_id": "user-123",
-  "email": "user@example.com",
-  "roles": ["user", "admin"],
-  "iat": 1704067200,
-  "exp": 1704070800
-}
-```
+1. (Rule description — when X happens, the system should Y)
+2. (Rule description)
+3. (Rule description)
 
 ---
 
-## 5. Image Reference Example
+## 7. UI / Interaction (if applicable)
 
-To include images in this file, use relative paths like:
+(Describe screen layout, user flow, or reference wireframes.)
 
-```markdown
-![Authentication Flow](../images/auth-flow.png)
-```
-
-The image will be uploaded to Confluence as an attachment when you run `--sync`.
+![wireframe](../images/wireframe-example.png)
 
 ---
 
-## 6. Cross-Reference Example
+## 8. Open Questions
 
-For references to other specification documents, use standard Markdown links:
-
-```markdown
-See [User Profile Management](../F1.2%20User%20Profile%20Management.md) for user profile handling.
-```
-
-Or link to Confluence pages by ID:
-
-```markdown
-[Security Policy](https://yourorg.atlassian.net/wiki/spaces/DOCS/pages/123456)
-```
-
----
-
-## 7. Implementation Checklist
-
-- [ ] Authentication database schema
-- [ ] JWT token generation service
-- [ ] Token validation middleware
-- [ ] Rate limiting logic
-- [ ] Email verification workflow
-- [ ] Unit tests (>80% coverage)
-- [ ] Integration tests
-- [ ] Security audit
-- [ ] Documentation update
-- [ ] Deployment to production
+| # | Question | Status | Resolution |
+|---|----------|--------|------------|
+| 1 | (Unresolved question) | Open | |
+| 2 | (Resolved question) | Closed | (Decision made) |

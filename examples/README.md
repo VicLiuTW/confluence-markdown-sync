@@ -131,6 +131,12 @@ The tool preserves tables during sync. Avoid:
 - Empty cells without spaces (use ` ` or `-`)
 - Very wide tables (>80 characters per row) — wrap text instead
 
+### Rule 7: Table of Contents (Auto-Generated)
+
+You do NOT need to add a table of contents in your Markdown file. The sync tool automatically inserts a Confluence TOC macro (`ac:structured-macro ac:name="toc"`) at the top of every page when pushing. The TOC displays headings up to level 3 (H3 / `###`).
+
+This means your `##` and `###` headings will automatically appear in the Confluence page's table of contents.
+
 ## File Structure Overview
 
 Both templates follow this pattern:
@@ -240,6 +246,12 @@ See the templates for concrete examples.
 ```markdown
 詳見 [使用者檔案管理](../F1.2%20使用者檔案管理.md)。
 ```
+
+### 規則 7：目錄（自動產生）
+
+你不需要在 Markdown 檔案中手動加入目錄。同步工具在 push 時會自動在 Confluence 頁面頂部插入 TOC 巨集，顯示到第三層標題（`###`）。
+
+你的 `##` 和 `###` 標題會自動出現在 Confluence 頁面的目錄中。
 
 ### 規則 6：表格格式慣例
 
